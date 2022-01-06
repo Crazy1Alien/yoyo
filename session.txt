@@ -1,0 +1,25 @@
+<?php
+
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<body>
+<form name="myform" method="post" action=""  >  
+Name: <input type="text" name="name"><br/>  
+Password: <input type="password" name="password"><br/>  
+<input type="submit" value="register">  
+</form>
+<?php
+$value=$_POST["name"];
+$value2=$_post["password"];
+
+$_SESSION["newsession"]=$value;
+$_SESSION["newsession2"]=$value2;
+/*session created*/
+echo "username=".$_SESSION["newsession"]."<br>";;
+echo "password=".$_SESSION["newsession2"];;
+
+?>
+</body>
+</html>
