@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#form {
+    width: 300px;
+    margin: 10% auto 0 auto;
+    padding: 20px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+#form h1 {
+    color: #0f2027;
+    text-align: center;
+}
+button {
+    padding: 10px;
+    margin-top: 10px;
+    width: 107%;
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 4px;
+}
+.input-control {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-size: 12px;
+    padding: 10px;
+    width: 100%;
+}
+.inputval input:focus {
+    outline: none;
+}
+.inputval.success input {
+    border-color: #09c372;
+}
+.inputval.error input {
+    border-color: #ff3860;
+}
+.inputval .error  {
+    color: #ff3860;
+    font-size: 9px;
+    height: 13px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="form" action="/">
+            <h1>Registration</h1>
+            <div class="inputval">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="off">
+                <div class="error"></div>
+            </div>
+            <div class="inputval">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text"autocomplete="off">
+                <div class="error"></div>
+            </div>
+            <div class="inputval">
+                <label for="password">Password</label>
+                <input id="password"name="password" type="password"autocomplete="off">
+                <div class="error"></div>
+            </div>
+            <div class="inputval">
+                <label for="confirm">Confirm Password</label>
+                <input id="confirm"name="confirm" type="confirm"autocomplete="off">
+                <div class="error"></div>
+            </div>
+            <button type="submit" id="submit">Sign Up</button>
+        </form>
+    </div>
+    <script>
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmpass = document.getElementById('confirm');
+     
+        
+document.getElementById('form').addEventListener('submit', e=> {
+    e.preventDefault();
+    validateInputs();
+});
+const isValidEmail = email => {
+    const check = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,63}$/;
+    return check.test(email.toLowerCase());
+}
+function validateInputs(){       
+        const usernameval = document.getElementById('username').value.trim();
+        const emailval = document.getElementById('email').value.trim();
+        const passwordval = document.getElementById('password').value.trim();
+        const confirmpassval = document.getElementById('confirm').value.trim();
+    if(usernameval == '') {        
+        username.parentElement.querySelector('.error').innerText='Username is required';
+        username.parentElement.classList.add('error');
+        username.parentElement.classList.remove('success')
+    } else {
+        username.parentElement.querySelector('.error').innerText='';
+        username.parentElement.classList.add('success');
+        username.parentElement.classList.remove('error');
+    }
+    if(emailval == '') {
+        email.parentElement.querySelector('.error').innerText='Email is required';
+        email.parentElement.classList.add('error');
+    } else if (!isValidEmail(emailval)) {
+        email.parentElement.querySelector('.error').innerText='Provide a valid email address';
+        email.parentElement.classList.add('error');
+    } else {
+        email.parentElement.querySelector('.error').innerText='';
+        email.parentElement.classList.add('success');
+    }
+    if(passwordval == '') {
+        password.parentElement.querySelector('.error').innerText='Password is required';
+        password.parentElement.classList.add('error');
+    } else if (passwordval.length < 8 ) {
+        password.parentElement.querySelector('.error').innerText='Password must be at least 8 character.';
+        password.parentElement.classList.add('error');
+    } else {
+        password.parentElement.querySelector('.success').innerText='';
+        password.parentElement.classList.add('success');
+    }
+    if(confirmpassval == '') {
+        confirmpass.parentElement.querySelector('.error').innerText='Please confirm your password';
+        confirmpass.parentElement.classList.add('error');
+    } else if (confirmpassval !== passwordval) {
+        confirmpass.parentElement.querySelector('.error').innerText="Passwords doesn't match";
+        confirmpass.parentElement.classList.add('error');
+    } else {
+        confirmpass.parentElement.querySelector('.error').innerText='';
+        confirmpass.parentElement.classList.add('success');
+    }
+};
+    </script>
+</body>
+</html>
